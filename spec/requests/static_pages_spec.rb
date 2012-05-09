@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Static pages" do
 
-  let(:xxx) { "Ruby on Rails Tutorial Sample App" }
+  let(:defualt_title) { "Ruby on Rails Tutorial Sample App" }
 
   describe "Home page" do
 
@@ -13,8 +13,14 @@ describe "Static pages" do
 
     it "should have the right title" do
       visit '/static_pages/home'
-      page.should have_selector('title', :text => "#{xxx} | Home")
+      page.should have_selector('title', :text => "#{defualt_title}")
     end
+
+    it "should not have a custom page title" do
+      visit '/static_pages/home'
+      page.should_not have_selector('title', :text => '| Home')
+    end
+
   end
 
    describe "Help page" do
@@ -26,7 +32,7 @@ describe "Static pages" do
 
     it "should have the title 'Help'" do
       visit '/static_pages/help'
-      page.should have_selector('title', :text => "#{xxx} | Help")
+      page.should have_selector('title', :text => "#{defualt_title} | Help")
     end
   end
 
@@ -39,7 +45,7 @@ describe "Static pages" do
 
     it "should have the title 'About Us'" do
       visit '/static_pages/about'
-      page.should have_selector('title', :text => "#{xxx} | About Us")
+      page.should have_selector('title', :text => "#{defualt_title} | About Us")
     end
   end
 
@@ -50,9 +56,14 @@ describe "Static pages" do
       page.should have_selector('h1', :text => 'Contact')
     end
 
+    it "should have the P 'Contact'" do
+      visit '/static_pages/contact'
+      page.should have_selector('p', :text => 'Contact P')
+    end
+
     it "should have the title 'Contacts'" do
       visit '/static_pages/contact'
-      page.should have_selector('title', :text => "#{xxx} | Contacts")
+      page.should have_selector('title', :text => "#{defualt_title} | Contacts")
     end
   end
 
@@ -60,7 +71,15 @@ describe "Static pages" do
 
     it "should have the h1 'Site Map'" do
       visit '/static_pages/site_map'
-      page.should have_selector('title', :text => "#{xxx} | Site Map")
+      page.should have_selector('title', :text => "#{defualt_title} | Site Map")
+    end
+  end
+
+  describe "Parts page" do
+
+    it "should have the h1 'parts page'" do
+      visit '/static_pages/parts'
+      page.should have_selector('h1', :text => "This is the parts page")
     end
   end
 
